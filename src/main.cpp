@@ -22,7 +22,7 @@ void make(std::string configure, std::string subdirectories, std::string flags="
 }
 
 void execute_new(std::string cmd) {
-    execute("mintty \"" + cmd + "\"");
+    execute("mintty " + cmd);
 }
 
 int main() {
@@ -35,10 +35,20 @@ int main() {
     make("Debug", subdirectories, "-g"); 
     
     execute_new("./bin/Test/main");
-    execute("ps aux | grep /cygdrive/c/Users/acer/Desktop/Cpp/GoodMake/bin/Test/main | grep -v grep");
+    Sleep(1000);
+    execute("ps aux | grep /cygdrive/c/Users/acer/Desktop/Cpp/GoodMake/bin/Test/main | grep -v grep > pid");
 
+    std::ifstream file("./pid");
+    
+    std::string pid = "";
+    std::getline(file, pid);
+    pid = pid.substr(5, 4);
 
-    execute_new("gdb");
+    std::cout << "PID:" << pid << "\n";
+
+    file.close();   
+
+    execute_new("gdb \"./bin/Test/main\" " + pid);
 
     std::cout << "Please enter any key for exit\n";
     system("read -N 1");
