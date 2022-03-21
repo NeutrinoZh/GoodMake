@@ -5,7 +5,7 @@ FLAGS = -MD -Wall -I ./include -O3 $(compile_flags)
 
 SRC_DIR = ./src
 
-DIRS := $(SRC_DIR) $(addprefix $(SRC_DIR)/, $(SUB_DIR)) 
+DIRS := $(SRC_DIR) $(SUB_DIR) 
 SRC := $(wildcard $(addsuffix /*.cpp, $(DIRS)))
 OBJ := $(patsubst $(SRC_DIR)/%.cpp, bin/$(configure)/objs/%.o, $(SRC))
 

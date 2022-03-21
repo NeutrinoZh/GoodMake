@@ -10,6 +10,7 @@ cd ..
  
 if [[ $Configure == Release ]]
 then
+
     make build configure=$Configure SUB_DIR="$SUB_DIR"
 
     echo -e "\nRun Program...\n"
