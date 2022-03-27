@@ -6,8 +6,9 @@ std::string get_directory() {
     const std::filesystem::path src{"./src/"};
     for (auto const& dir_entry : std::filesystem::recursive_directory_iterator{src})
         if (dir_entry.is_directory()) {
-            const char* path = (const char*)dir_entry.path().c_str();
-            result += std::string(path) + " ";
+            std::string path = (const char*)dir_entry.path().c_str();
+            path.replace(path.begin(), path.begin() + 6, "");
+            result += path + " ";
         }
 
     return result;
@@ -30,7 +31,7 @@ void execute_new(std::string cmd) {
 }
 
 int main(int countArg, char* args[]) {
-    std::cout << "Please enter any key for exit\n";
+    std::cout << "Please enter any key for continue\n";
     system("read -N 1");
 
     std::cout << "GoodMake Start" << std::endl;
@@ -65,7 +66,7 @@ int main(int countArg, char* args[]) {
         execute_new(cmd);
     });
 
-    Sleep(1000);
+    Sleep(500);
     execute("ps aux | grep ./bin/" + title + "/main | grep -v grep > pid");
 
     std::ifstream file("./pid");
